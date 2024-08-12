@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Management</title>
+</head>
+<body>
+    <h1>All Books</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Book Name</th>
+                <th>Book Author</th>
+                <th>Book Pages</th>
+                <th>Book Price</th>
+                <th>Availability</th>
+                <th>Issue</th>
+                <th>Return</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Looping through the list of books and creating a row for each book -->
+            <% data.forEach(element => { %>
+                <tr>
+                    <!-- Display book details in table cells -->
+                    <td><%= element.bookName %></td>
+                    <td><%= element.bookAuthor %></td>
+                    <td><%= element.bookPages %></td>
+                    <td><%= element.bookPrice %></td>
+                    <td><%= element.bookState %></td>
+                    <!-- Form to issue a book -->
+                    <td>
+                        <form action="/issue" method="post">
+                            <!-- Hidden input to pass the book name -->
+                            <input type="hidden" name="bookName" value="<%= element.bookName %>">
+                            <button type="submit">Issue</button>
+                        </form>
+                    </td>
+                    <!-- Form to return a book -->
+                    <td>
+                        <form action="/return" method="post">
+                            <!-- Hidden input to pass the book name -->
+                            <input type="hidden" name="bookName" value="<%= element.bookName %>">
+                            <button type="submit">Return</button>
+                        </form>
+                    </td>
+                    <!-- Form to delete a book -->
+                    <td>
+                        <form action="/delete" method="post">
+                            <!-- Hidden input to pass the book name -->
+                            <input type="hidden" name="bookName" value="<%= element.bookName %>">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    
+    <h1>Add Book</h1>
+    
+    <!-- Form to add a new book to the list -->
+    <form action="/" method="post">
+        <!-- Input fields for the book details -->
+        <input type="text" placeholder="Book Name" name="bookName" required>
+        <input type="text" placeholder="Book Author" name="bookAuthor" required>
+        <input type="number" placeholder="Book Pages" name="bookPages" required>
+        <input type="number" placeholder="Book Price" name="bookPrice" step="0.01" required>
+        <!-- Submit button to add the book -->
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>
